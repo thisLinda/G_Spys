@@ -26,9 +26,9 @@ text14 = 'A frieze.'
 text15 = 'My car.'
 text16 = 'A ghoooooost in spring!'
 text17 = 'My tower.'
-text18 = 'An ingenious way to add a new building to an old building.'
-text19 = 'An ivy without leaves.'
-text20 = 'An ivy WITH leaves.'
+text18 = 'A clever way to add a new building to an old building.'
+text19 = 'Ivy without leaves.'
+text20 = 'Ivy WITH leaves.'
 text21 = 'A magnolia tree.'
 text22 = 'A mural.'
 text23 = 'A nest.'
@@ -56,15 +56,19 @@ text_lst = [text0, text1, text2, text4, text5, text6, text7, text8, text9, text1
             text40, text41]
 
 
+# return txt to advance text with images
 def text(text_num):
     for txt in text_lst:
         return txt
 
 
+# Tkinter widget LabelFrame provides title area for text
 make_frame = LabelFrame(root, text=text(0), width=100, height=100,
                         font=('Arial', 14, 'bold'), fg='red', bd=10)
+# grid geometry manager to place text on screen based on rows/columns
 make_frame.grid(row=0, column=1, columnspan=5)
 
+# creates Tkinter-compatible photo image
 img0 = ImageTk.PhotoImage(Image.open('spy_images/overlay560.PNG'))
 img1 = ImageTk.PhotoImage(Image.open('spy_images/poop.jpg'))
 img2 = ImageTk.PhotoImage(Image.open('spy_images/rainbow.jpg'))
@@ -114,6 +118,7 @@ make_frame = LabelFrame(root, text=text(0), width=100, height=100,
                         font=('Arial', 14, 'bold'), fg='red', bd=10)
 make_frame.grid(row=0, column=1, columnspan=5)
 
+# Tkinter doesn't handle references to images, code creates a reference and attaches to widget attribute
 img_filename = 'spy_images/overlay560.PNG'
 PIL_image = Image.open(img_filename)
 img = ImageTk.PhotoImage(PIL_image)
@@ -122,6 +127,7 @@ in_frame = Label(make_frame, image=img)
 in_frame.grid(padx=10, pady=10)
 
 
+# destroys current, recreates new, >> button moves image/text forward
 def forward(image_num, txt_num):
     global make_frame
     global in_frame
@@ -140,9 +146,11 @@ def forward(image_num, txt_num):
     button_forward = Button(root, text='>>', command=lambda: forward(image_num + 1, txt_num + 1), bg='#d9d5d4',
                             font=('Arial', 14, 'bold'))
 
+    # disable button to prevent further, inaccurate forward at last image
     if image_num == 38:
         button_forward = Button(root, text='>>', state=DISABLED, bg='#d9d5d4', font=('Arial', 14, 'bold'))
 
+    # grid places on screen, best practice: keep separate from create
     make_frame.grid(row=0, column=1, columnspan=5)
     in_frame.grid(row=0, column=0, columnspan=5)
     in_frame.grid(padx=10, pady=10)
@@ -153,6 +161,7 @@ def forward(image_num, txt_num):
     button_forward.grid_columnconfigure(4, weight=1)
 
 
+# destroys current, recreates new, << button moves image/text backward
 def back(image_num, txt_num):
     global make_frame
     global in_frame
@@ -171,6 +180,7 @@ def back(image_num, txt_num):
     button_forward = Button(root, text='>>', command=lambda: forward(image_num + 1, txt_num + 1), bg='#d9d5d4',
                             font=('Arial', 14, 'bold'))
 
+    # disable button to prevent further, inaccurate backward at initial image
     if image_num == 0:
         button_back = Button(root, text='<<', state=DISABLED, bg='#d9d5d4', font=('Arial', 14, 'bold'))
 
@@ -184,6 +194,7 @@ def back(image_num, txt_num):
     button_forward.grid_columnconfigure(4, weight=1)
 
 
+# creates initial screen
 button_back = Button(root, text='<<', command=back, state=DISABLED, bg='#d9d5d4',
                      font=('Arial', 14, 'bold'))
 button_exit = Button(root, text='Cancel', command=root.quit, bg='#d9d5d4', font=('Arial', 12))
@@ -197,5 +208,6 @@ button_back.grid_columnconfigure(0, weight=1)
 button_exit.grid_columnconfigure(2, weight=1)
 button_forward.grid_columnconfigure(4, weight=1)
 
+# mainloop code runs/images persist, essentially an infinite loop
 root.mainloop()
 
