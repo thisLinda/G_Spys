@@ -12,7 +12,7 @@ and a perfect project idea!
 ## Take a Tour
 Click [I Spy](https://thislinda.github.io/G_Spys/) to view it in your browser.
 
-*Note: deployment pending me figuring it out!
+*Note: not yet deployed
 
 ## Learn More
 Learn more about [Code In Place](https://www.stanforddaily.com/2020/06/08/code-in-place-makes-cs-accessible-to-thousands-worldwide/).
